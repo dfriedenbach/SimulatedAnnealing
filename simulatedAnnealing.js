@@ -19,7 +19,33 @@ function generateRandomSolution(){
 
 function generateNeighboringSolution(oldSolution){
   // add, swap, or remove item randomly
-
+  var choices = ['add', 'swap', 'remove'];
+  var weight = weigh(oldSolution);
+  var foundSolution = false;
+  var solution;
+  while (!foundSolution) {
+    var index = randomIndex(oldSolution);
+    var choice = choices[randomIndex(choices)];
+    if (choice === 'add') {
+      var newItem = items[randomIndex(items)];
+      if (weight + newItem.weight <= knapsack.maxWeight) {
+        solution = oldSolution.slice();
+        solution.push(newItem);
+        foundSolution = true;
+      }
+    } else if (choice === 'swap') {
+      var oldItem = oldSolution[index];
+      newItem = items[randomIndex(items)];
+      if (weight + newItem.weight - oldItem.weight <= knapsack.maxWeight) {
+        solution = oldSolution.slice();
+        solution[index] = newItem;
+        foundSolution = true;
+      }
+    } else {
+      solution = oldSolution.slice().splice(index, 1);
+      foundSolution = true;
+    }
+  }
   return solution; // array of items, must be <= maxWeight
 }
 
