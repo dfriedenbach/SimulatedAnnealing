@@ -7,7 +7,6 @@ var items = [ // allowed multiple of each
 ];
 
 function generateRandomSolution(){
-
   return solution; // array of items, must be <= maxWeight
 };
 
@@ -18,7 +17,7 @@ function generateNeighboringSolution(oldSolution){
 }
 
 function calculateCost(solution){
-
+  var cost = _.reduce(_.pluck(solution, 'value'), function(a,b){return a + b;});
   return cost; // sum of values of items
 }
 
