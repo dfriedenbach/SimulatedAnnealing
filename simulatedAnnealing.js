@@ -59,6 +59,27 @@ function acceptance_probability(old_cost, new_cost, temperature){
 }
 
 function simulateAnnealing(){
+  var solution = generateRandomSolution();
+  var oldCost = calculateCost(solution);
+  var newSolution;
+  var newCost
+  var ap;
+  var T = 1;
+  var Tmin = 0.00001;
+  var alpha = 0.9;
+
+  while (T > Tmin) {
+    for (var i = 0; i < 100; i++) {
+      newSolution = generateNeighboringSolution(solution);
+      newCost = calculateCost(newSolution);
+      ap = acceptance_probability(oldCost, newCost, T);
+      if (ap > Math.random()) {
+        solution = newSolution;
+        oldCost = newCost;
+      }
+    }
+    T *= alpha;
+  }
 
   return solution; // array of items, must be <= maxWeight
 };
