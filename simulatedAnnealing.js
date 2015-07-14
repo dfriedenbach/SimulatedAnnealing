@@ -7,6 +7,13 @@ var items = [ // allowed multiple of each
 ];
 
 function generateRandomSolution(){
+  var solution = [];
+  var weight = 0;
+  while (weight <= knapsack.maxWeight) {
+    solution.push(items[randomIndex(items)]);
+    weight += solution[solution.length - 1].weight;
+  }
+  solution.pop();
   return solution; // array of items, must be <= maxWeight
 };
 
